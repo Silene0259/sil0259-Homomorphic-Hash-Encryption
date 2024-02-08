@@ -4,6 +4,8 @@
 
 > Made especially for **Slinky**
 
+> This work is **NOT FINISHED** and in its infancy.
+
 ## Notice
 
 This was written in a few hours and is incomplete and needs extensive work. It will be updated. You are free to create a pull request with a seperate file/folder like so: `[username]-HHE-Usage.md` or `[username]-HHE-Pseudocode.md`. This file remains untouched and will be updated overtime. Currently, I do not have much time on my hands so apologizes this is not more in-depth.
@@ -36,7 +38,7 @@ Requires using large primitive types like u256, u384, and u512. **Fully-Homomorp
 
 ### One-Time Signatures
 
-Generating hash of Lamport Signature (or other OTS), homomorphically encrypting it, then sending to server for it to generate its own one-time signature and adding it homomorphically. Finally, it is sent to back to the client. There exists multiple use cases for this and will be extended on.
+Generating hash of **Lamport Signature** (or other OTS), homomorphically encrypting it, then sending to server for it to generate its own one-time signature and adding it homomorphically. Finally, it is sent to back to the client. There exists multiple use cases for this and will be extended on.
 
 ### Data Integrity Check Between Two Nodes To Check Whether They Have The Same Data Without Revealing The Hash Digest or Data
 
@@ -48,15 +50,19 @@ This simple method is powerful because the server never learns what the client h
 
 In some ways, this can be compared to a zero-knowledge proof because the server never learns anything about the data unless it already has that data. This means it is either true or false.
 
+**Attack on Server Hash Digest:** A client can subtract their own hash digest and get the hash digest of the server but the opposite is not true. The server should never learn the digest unless it already suspects it.
+
 ### Verify Password With Server or Node
 
 **Notice:** Currently untrusted due to security issues with TFHE but possibly useful in the future.
 
 A client can verify a server or node knows their password without revealing it. The only knowledge the server needs to know is the hash digest of the password. The same method above can be used to check whether the password is known.
 
-### Asymetric Keypair Verification
+### More On The Way
 
-- Verify Asymetric Key pair (such as RSA or ED25519) by hashing public key
+There are more use cases on the way.
+
+---
 
 ## Outline
 
@@ -76,10 +82,30 @@ Client generates a **Hash Digest** (256 bits for simplicity) using a **chosen ha
 
 The client then generates its own **secret key** for homomorphically encrypting the hash digest.
 
+
 ## Pseudocode In Python
 
 ```python
 
+import hashlib
+
+# Can hash image, video, keys, data, file
+def hash(input):
+    # Hash Input Data
+    x = hashlib.sha256(input)
+
+    # Return Hexadecimal Hash
+    digest = x.hashdigest()
+
+return digest
+        
+        
+
+    def generate_client_secret_key():
+        // generates client secret key for homomorphic encryption
+
+    def generate_server_keys():
+        // generates server keys for homomorphic encryption
 ```
 
 ## Example Code Using TFHE
